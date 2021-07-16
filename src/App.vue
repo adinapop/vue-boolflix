@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <Main />
+    <Main :movies="movies.results"/>
   </div>
 </template>
 
@@ -87,7 +87,7 @@ export default {
           ],
           "total_pages": 1,
           "total_results": 3
-      }
+      },
     }
   },
 

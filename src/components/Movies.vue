@@ -1,31 +1,35 @@
 <template>
-    <div class="cards-container container">
-        <div class="row">
+    <div class="col-4 p-0">
 
-            <div class="img-container">IMMAGINE COPERTINA</div>
+        <div class="img-container">IMG</div>
+        <div> {{title}} </div>
+        <div> {{original_title}} </div>
+        <div> {{original_language}} </div>
+        <div> {{vote_average}} </div>
 
-        </div>
     </div>
+
 </template>
 
 <script>
 export default {
-    
+    name: "Movies",
+    props: {
+        image: String,
+        title: String,
+        original_title: String,
+        original_language: String,
+        vote_average: Number,
+    }
 }
 </script>
 
 <style lang="scss" scoped>
-.cards-container {
-    margin-top: 24px;
 
-    .img-container {
-    height: 350px;
-    width: 250px;
-    border: 1px solid white;
-    background-image: url("https://image.tmdb.org/t/p/w342/hQq8xZe5uLjFzSBt4LanNP7SQjl.jpg");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    }
+.img-container {
+height: 450px;
+background-image: url("https://image.tmdb.org/t/p/w342/hQq8xZe5uLjFzSBt4LanNP7SQjl.jpg");
+background-repeat: no-repeat;
 }
 
 </style>
