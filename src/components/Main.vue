@@ -2,6 +2,11 @@
     <main>
 
         <div class="cards-container container">
+            <!-- Input che vorrei rendere dinamica quando fai click sull'icona all'header -->
+            <input type="Search" placeholder="Search" v-model="Search">
+            <button>Search</button>
+
+            <h1>ORIGINALI NETFLIX</h1>
 
             <div class="row">
                 <Movies 
@@ -35,6 +40,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h1 {color: whitesmoke}
 
 
 </style>
