@@ -18,14 +18,11 @@
 
             <div class="account-header df">
                 <!-- emit -->
-                <div><button>SEARCH</button></div>
+                <div class="search-button"><button><i class="fa fa-search"></i></button></div>
                 <div><a href="#">BAMBINI</a></div>
-                <div>BELL</div>
-                <div class="img-account">
-                    IMG Account ^
-                </div>
-
-                
+                <div class="notification-button"><i class="fa fa-bell"></i></div>
+                <div class="img-account">AVATAR</div>
+                <span class="down"><i class="fa fa-sort-down"></i></span>
             </div>
         </div>
     </header>
@@ -50,6 +47,22 @@ export default {
 
     .info-content > div, .account-header > div {
         padding: 0 6px;
+    }
+
+    .account-header {
+        .search-button {
+            button {
+                background-color: #1b1b1b;
+                color: white;
+                border: none;
+            }
+        }
+
+        .notification-button, .down {
+            &:hover {
+                cursor: pointer;
+            }
+        }
     }
 }
 </style>

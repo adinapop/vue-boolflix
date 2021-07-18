@@ -110,7 +110,6 @@ export default {
 @import "./style/app.scss";
 @import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
 #app {
-  height: 100vh;
   background-color: $bg-color;
 
 }
