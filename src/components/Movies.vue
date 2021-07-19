@@ -1,7 +1,9 @@
 <template>
-    <div class="movies-album col-4 p-0">
+    <div class="movies-album col-2 p-0">
 
-        <div class="img-container"></div>
+        <div class="img-container">
+            <img :src="image" alt="prova">
+        </div>
 
         <div class="hover-container">
             <div class="title"> {{title}} </div>
@@ -42,7 +44,7 @@ export default {
         height: 450px;
         background-image: url("https://image.tmdb.org/t/p/w342/hQq8xZe5uLjFzSBt4LanNP7SQjl.jpg");
         background-repeat: no-repeat;
-        background-size: 100%;
+        // background-size: 100%;
     }
 
     &:hover {

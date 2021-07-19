@@ -4,7 +4,7 @@
 
             <div class="info-header df">
                 <div class="logo-container">
-                    LOGO
+                    <img src="../assets/Netflix_logo.png" alt="Netflix Logo">
                 </div>
                 <div class="info-content df">
                     <div><a href="#">Menu</a></div>
@@ -18,10 +18,12 @@
 
             <div class="account-header df">
                 <!-- emit -->
-                <div class="search-button"><button><i class="fa fa-search"></i></button></div>
+                <div class="search-button"><button><i class="fas fa-search"></i></button></div>
                 <div><a href="#">BAMBINI</a></div>
-                <div class="notification-button"><i class="fa fa-bell"></i></div>
-                <div class="img-account">AVATAR</div>
+                <div class="notification-button"><i class="fas fa-bell"></i></div>
+                <div class="img-account">
+                    <img src="../assets/avatar_profile.png" alt="Avatar">
+                </div>
                 <span class="down"><i class="fa fa-sort-down"></i></span>
             </div>
         </div>
@@ -39,10 +41,14 @@ export default {
     color: white;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 24px 12px;
 
     .logo-container {
-        margin-right: 12px;
+        margin-right: 36px;
+        width: 80px;
+         
+        img {width: 100%;}
     }
 
     .info-content > div, .account-header > div {
@@ -62,6 +68,12 @@ export default {
             &:hover {
                 cursor: pointer;
             }
+        }
+
+        .img-account {
+            width: 40px;
+            
+            img {width: 100%;}
         }
     }
 }
