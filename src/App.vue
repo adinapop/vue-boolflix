@@ -33,7 +33,7 @@ export default {
   methods: {
     // faccio la nuova chiamata API tramite search dell'utente per cercare film o serie
     searchMulti(searchInput) {
-      axios.get(`https://api.themoviedb.org/3/search/multi?api_key=557ce10c821b70880c7de5a864524185&api_key=557ce10c821b70880c7de5a864524185&query=${searchInput}`).then((result) => {
+      axios.get(`https://api.themoviedb.org/3/search/multi?api_key=557ce10c821b70880c7de5a864524185&query=${searchInput}`).then((result) => {
         this.popular = result.data.results;
       });
     }
