@@ -19,7 +19,7 @@
                 </div>
 
                 <Movies 
-                    v-for="movie in movies"
+                    v-for="movie in popular"
                     :key="movie.id"
                     :image="movie.poster_path"
                     :title="movie.title"
@@ -48,7 +48,7 @@ export default {
         Movies,
     },
     props: {
-        movies: Array,
+        popular: Array,
     }
 }
 </script>
