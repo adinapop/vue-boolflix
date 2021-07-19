@@ -8,7 +8,10 @@
         <div class="hover-container">
             <div class="title"> {{title}} </div>
             <div class="original-title">Title: {{original_title}} </div>
-            <div class="original_language">Language: {{original_language}} </div>
+            <div class="original_language">
+                Language: {{original_language}}
+                <img :src="getLangFlag(original_language)" />
+            </div>
             <div class="vote-average">Vote: {{vote_average}} </div>
         </div>
 
@@ -17,6 +20,8 @@
 </template>
 
 <script>
+
+
 export default {
     name: "Movies",
     props: {
@@ -29,7 +34,12 @@ export default {
     methods: {
         getCompletePoster(incompleteImg) {
             return `http://image.tmdb.org/t/p/w500/${incompleteImg}`;
-        }
+        },
+        //NOT WORKING
+        getLangFlag(language) {
+            // con require si spacca prorpio
+            return `../assets/flags/${language}.svg`;
+        },
     }
 }
 </script>

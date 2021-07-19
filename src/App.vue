@@ -27,6 +27,7 @@ export default {
     this.callPopularApi();
   },
 
+  // DA RIVEDERE
   methods: {
     // function per richiamare l'API con i film più popolari
     callPopularApi() {

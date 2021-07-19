@@ -29,7 +29,6 @@
                     :image="movie.poster_path"
                 />
             </div>
-
         </div>
 
     </main>
