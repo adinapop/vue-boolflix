@@ -1,8 +1,8 @@
 <template>
-    <div class="movies-album col-2 p-0">
+    <div class="movies-album col-3 p-0">
 
         <div class="img-container">
-            <img :src="image" alt="prova">
+            <img :src="getCompletePoster(image)" alt="prova">
         </div>
 
         <div class="hover-container">
@@ -25,6 +25,11 @@ export default {
         original_title: String,
         original_language: String,
         vote_average: Number,
+    },
+    methods: {
+        getCompletePoster(incompleteImg) {
+            return `http://image.tmdb.org/t/p/w500/${incompleteImg}`;
+        }
     }
 }
 </script>
@@ -41,10 +46,8 @@ export default {
     }
 
     .img-container {
-        height: 450px;
-        background-image: url("https://image.tmdb.org/t/p/w342/hQq8xZe5uLjFzSBt4LanNP7SQjl.jpg");
-        background-repeat: no-repeat;
-        // background-size: 100%;
+        
+        img {width: 100%;}
     }
 
     &:hover {
@@ -53,14 +56,14 @@ export default {
             display: inline-block;
             position: absolute; 
             bottom: 0; 
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.8);
             color: #f1f1f1; 
             width: 100%;
             padding: 24px;
             text-align: center;
 
             .title {
-                font-size: 30px;
+                font-size: 24px;
                 font-weight: bold;
                 font-style: italic;
                 border-bottom: 1px solid gray;

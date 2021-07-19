@@ -21,11 +21,12 @@
                 <Movies 
                     v-for="movie in popular"
                     :key="movie.id"
-                    :image="movie.poster_path"
                     :title="movie.title"
                     :original_title="movie.original_title"
                     :original_language="movie.original_language"
                     :vote_average="movie.vote_average"
+                    :getCompletePoster="movie.poster_path"
+                    :image="movie.poster_path"
                 />
             </div>
 
@@ -82,9 +83,7 @@ export default {
                 font-weight: normal;
 
                 &::placeholder {color: black;}
-
             }
-
         }
 
         .search-button {

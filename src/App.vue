@@ -24,19 +24,25 @@ export default {
   },
 
   created() {
-    axios.get("https://api.themoviedb.org/3/movie/popular?api_key=557ce10c821b70880c7de5a864524185&language=it-IT&page=1")
-    .then((result) => {
-    this.popular = result.data.results;
-    });
+    this.callPopularApi();
   },
 
   methods: {
+    // function per richiamare l'API con i film più popolari
+    callPopularApi() {
+      axios.get("https://api.themoviedb.org/3/movie/popular?api_key=557ce10c821b70880c7de5a864524185&language=it-IT&page=1")
+      .then((result) => {this.popular = result.data.results;});
+    },
+
     // faccio la nuova chiamata API tramite search dell'utente per cercare film o serie
     searchMulti(searchInput) {
+      if(searchInput.length === 0) {
+          return this.callPopularApi();
+      }
       axios.get(`https://api.themoviedb.org/3/search/multi?api_key=557ce10c821b70880c7de5a864524185&query=${searchInput}`).then((result) => {
         this.popular = result.data.results;
       });
-    }
+    },
   }
 }
 </script>
