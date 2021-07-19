@@ -12,9 +12,14 @@
                 Language: {{original_language}}
                 <img :src="getLangFlag(original_language)" />
             </div>
-            <div class="vote-average">Vote: {{vote_average}} </div>
-        </div>
 
+            <!-- v-for in range (guarda vuejs.org) -->
+            <div class="vote-average">
+                <!-- stampo solo il numero di stelle che corrispono al voto dal data -->
+                <i class="fas fa-star" v-for="star in star" :key="star"></i>
+                <!-- come metto le altre vuote? differenza? -->
+            </div>
+        </div>
     </div>
 
 </template>
@@ -30,6 +35,12 @@ export default {
         original_title: String,
         original_language: String,
         vote_average: Number,
+    },
+    computed: {
+        // la metto qui perché è un'operazione che non altera il voto originale e non deve ripetersi come nel method, ma solo al riavvio
+        star() {
+            return Math.round(this.vote_average / 2);
+        }
     },
     methods: {
         getCompletePoster(incompleteImg) {
@@ -83,7 +94,10 @@ export default {
                 font-size: 15px;
                 color: whitesmoke;
             }
+
+            .vote-average {color: gold;}
         }
+        
     }
 }
 
