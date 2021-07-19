@@ -5,9 +5,9 @@
             <div class="row">
 
                 <h1 class="p-0">ORIGINALI NETFLIX</h1>
-
                 <!-- Input che vorrei rendere dinamica quando fai click sull'icona all'header -->
-                <div class="search-container df p-0">
+                <!-- v-if="display" -->
+                <div class="search-container df p-0" :style="display">
                     <input 
                     class="search-input" 
                     type="Search" 
@@ -15,7 +15,6 @@
                     v-model="searchInput"
                     @keyup.enter="$emit('search', searchInput)">
                     <button class="search-button" @click="$emit('search', searchInput)">Search</button>
-
                 </div>
 
                 <Movies 
@@ -39,17 +38,17 @@ import Movies from "./Movies.vue"
 
 export default {
     name: "Main",
-    data() {
-        return {
-            searchInput: "",
-        }
-    },
     components: {
         Movies,
     },
     props: {
         popular: Array,
-    }
+    },
+    data() {
+        return {
+            searchInput: "",
+        }
+    },
 }
 </script>
 

@@ -17,8 +17,10 @@
             </div>
 
             <div class="account-header df">
-                <!-- emit -->
-                <div class="search-button"><button><i class="fas fa-search"></i></button></div>
+                <div class="search-button">
+                    <button @click="$emit('send', sendComand)"><i class="fas fa-search"></i></button>
+                </div>
+
                 <div><a href="#">BAMBINI</a></div>
                 <div class="notification-button"><i class="fas fa-bell"></i></div>
                 <div class="img-account">
@@ -32,8 +34,9 @@
 
 <script>
 export default {
-    name: "Header"
+    name: "Header",
 }
+
 </script>
 
 <style lang="scss" scoped>

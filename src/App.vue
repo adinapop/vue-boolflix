@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header />
+    <Header @send="openSearchBar()" />
     <Main :popular="popular" @search="searchMulti" />
   </div>
 </template>
@@ -44,6 +44,10 @@ export default {
         this.popular = result.data.results;
       });
     },
+    openSearchBar() {
+      this.display = !this.display;
+      alert("ciao");
+      }
   }
 }
 </script>

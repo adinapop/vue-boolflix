@@ -17,7 +17,10 @@
             <div class="vote-average">
                 <!-- stampo solo il numero di stelle che corrispono al voto dal data -->
                 <i class="fas fa-star" v-for="star in star" :key="star"></i>
-                <!-- come metto le altre vuote? differenza? -->
+                <!-- come metto le altre vuote? differenza?             
+                faccio la differenza tra il numero massimo (5) e quelle piene, 
+                così rimangono vuote quelle del risultato -->
+                <i class="far fa-star" v-for="(star, index) in (5 - star)" :key="index"></i>
             </div>
         </div>
     </div>
@@ -37,10 +40,13 @@ export default {
         vote_average: Number,
     },
     computed: {
-        // la metto qui perché è un'operazione che non altera il voto originale e non deve ripetersi come nel method, ma solo al riavvio
+        // la metto qui perché è un'operazione che non altera il voto originale e 
+        // non deve ripetersi come nel method, ma solo al riavvio
         star() {
-            return Math.round(this.vote_average / 2);
-        }
+            // prova a fare non arrotondata 
+            return Math.floor(this.vote_average / 2);
+        },
+
     },
     methods: {
         getCompletePoster(incompleteImg) {
@@ -62,12 +68,9 @@ export default {
 
     .hover-container, .info-hover-container {display: none;}
 
-    &:hover .hover-container {
-        opacity: 1;
-    }
+    &:hover .hover-container {opacity: 1;}
 
     .img-container {
-        
         img {width: 100%;}
     }
 
@@ -95,9 +98,15 @@ export default {
                 color: whitesmoke;
             }
 
-            .vote-average {color: gold;}
+            // PERCHE' NON FUNZIONA???
+            // .vote-average {
+            //     &:first-child {color: gold;}
+            //     }
+
+            .vote-average {
+                .fas {color: gold;}
+            }
         }
-        
     }
 }
 
