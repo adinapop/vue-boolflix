@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Header @send="openSearchBar()" />
-    <Main :popular="popular" @search="searchMulti" />
+    <!-- se movies and series is empty, allora visualizzo popular -->
+    <Main :popular="popular" :movies="movies" :series="series" @search="[searchMovie($event), searchSerie($event)]" />
+    <!-- $event = $searchInput -->
   </div>
 </template>
 
@@ -20,6 +22,9 @@ export default {
   data: function() {
     return {
       popular: [],
+      movies: [],
+      series: [],
+      flg: false,
     }
   },
 
@@ -44,6 +49,21 @@ export default {
         this.popular = result.data.results;
       });
     },
+    
+    searchMovie(searchInput) {
+      axios.get(`https://api.themoviedb.org/3/search/movie?api_key=557ce10c821b70880c7de5a864524185&query=${searchInput}`).then((result) => {
+        this.movies = result.data.results;
+      })
+    },
+
+    searchSerie(searchInput) {
+      console.log("ciao");
+      axios.get(`https://api.themoviedb.org/3/search/tv?api_key=557ce10c821b70880c7de5a864524185&query=${searchInput}`).then((result) => {
+        this.series = result.data.results;
+        console.log(result.data.results);
+      })
+    },
+
     openSearchBar() {
       this.display = !this.display;
       alert("ciao");

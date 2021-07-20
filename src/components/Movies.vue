@@ -2,15 +2,15 @@
     <div class="movies-album col-3 p-0">
 
         <div class="img-container">
-            <img :src="getCompletePoster(image)" alt="prova">
+            <img :src="getCompletePoster(image)" alt="Poster" >
         </div>
 
         <div class="hover-container">
             <div class="title"> {{title}} </div>
             <div class="original-title">Title: {{original_title}} </div>
             <div class="original_language">
-                Language: {{original_language}}
-                <img :src="getLangFlag(original_language)" />
+                Original Language:
+                <flag :iso="getLangFlag(original_language)" />
             </div>
 
             <!-- v-for in range (guarda vuejs.org) -->
@@ -29,33 +29,34 @@
 
 <script>
 
-
 export default {
-    name: "Movies",
-    props: {
-        image: String,
-        title: String,
-        original_title: String,
-        original_language: String,
-        vote_average: Number,
+name: "Movies",
+components: {},
+props: {
+    image: String,
+    title: String,
+    original_title: String,
+    original_language: String,
+    vote_average: Number,
+},
+computed: {
+    // la metto qui perché è un'operazione che non altera il voto originale e 
+    // non deve ripetersi come nel method, ma solo al riavvio
+    star() {
+        // prova a fare non arrotondata 
+        return Math.floor(this.vote_average / 2);
     },
-    computed: {
-        // la metto qui perché è un'operazione che non altera il voto originale e 
-        // non deve ripetersi come nel method, ma solo al riavvio
-        star() {
-            // prova a fare non arrotondata 
-            return Math.floor(this.vote_average / 2);
+},
+methods: {
+    getCompletePoster(incompleteImg) {
+        return `http://image.tmdb.org/t/p/w500/${incompleteImg}`;
         },
-
-    },
-    methods: {
-        getCompletePoster(incompleteImg) {
-            return `http://image.tmdb.org/t/p/w500/${incompleteImg}`;
-        },
-        //NOT WORKING
-        getLangFlag(language) {
-            // con require si spacca prorpio
-            return `../assets/flags/${language}.svg`;
+    getLangFlag(language) {
+        if(language === "en") {
+            return "us"
+        } else {
+            return language;
+        }
         },
     }
 }

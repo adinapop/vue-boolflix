@@ -17,16 +17,56 @@
                     <button class="search-button" @click="$emit('search', searchInput)">Search</button>
                 </div>
 
-                <Movies 
-                    v-for="movie in popular"
-                    :key="movie.id"
-                    :title="movie.title"
-                    :original_title="movie.original_title"
-                    :original_language="movie.original_language"
-                    :vote_average="movie.vote_average"
-                    :getCompletePoster="movie.poster_path"
-                    :image="movie.poster_path"
-                />
+                <!-- No result to add -->
+                <div v-if="movies.length === 0 && series.length === 0">
+
+                    <h2>Popular</h2>
+                    <div class="df">
+                        <Movies 
+                            v-for="movie in popular"
+                            :key="movie.id"
+                            :title="movie.title"
+                            :original_title="movie.original_title"
+                            :original_language="movie.original_language"
+                            :vote_average="movie.vote_average"
+                            :getCompletePoster="movie.poster_path"
+                            :image="movie.poster_path"
+                        />
+                    </div>
+                </div>
+
+                <div v-else>
+                    <h2>Movies</h2>
+                    <div class="df">
+
+                        <Movies 
+                            v-for="movie in movies"
+                            :key="movie.id"
+                            :title="movie.title"
+                            :original_title="movie.original_title"
+                            :original_language="movie.original_language"
+                            :vote_average="movie.vote_average"
+                            :getCompletePoster="movie.poster_path"
+                            :image="movie.poster_path"
+                        />
+                    </div>
+
+                    <h2>Series</h2>
+                    <div class="df">
+                        <Movies 
+                            v-for="movie in series"
+                            :key="movie.id"
+                            :title="movie.title"
+                            :original_title="movie.original_title"
+                            :original_language="movie.original_language"
+                            :vote_average="movie.vote_average"
+                            :getCompletePoster="movie.poster_path"
+                            :image="movie.poster_path"
+                        />
+
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -43,6 +83,8 @@ export default {
     },
     props: {
         popular: Array,
+        movies: Array,
+        series: Array
     },
     data() {
         return {
