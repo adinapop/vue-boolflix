@@ -5,20 +5,24 @@
         <div class="cards-container container">
 
             <div class="row">
-                <h1 class="p-0">ORIGINALI NETFLIX</h1>
-                <div class="search-container df p-0" v-if="flagShow" >
-                    <input 
-                    class="search-input" 
-                    type="Search" 
-                    placeholder="Search here your movie..." 
-                    v-model="searchInput"
-                    @keyup.enter="$emit('search', searchInput)">
-                    <button class="search-button" @click="$emit('search', searchInput)">Search</button>
+                <h1 class="p-0">HOME</h1>
+                <div class="search-container p-0" v-if="flagShow">
+                    <div class="df" v-if="closeButton">
+                        <input 
+                        class="search-input" 
+                        type="Search" 
+                        placeholder="Search here your movie..." 
+                        v-model="searchInput"
+                        @keyup.enter="$emit('search', searchInput)">
+                        <button class="search-button" @click="$emit('search', searchInput)">Search</button>
+                    </div>
+                    <div class="close-button-container"><button @click="$emit('close')" class="close-button" v-if="closeButton">CHIUDI LA BARRA DI RICERCA</button></div>
                 </div>
-
+                    
             <div v-if="movies.length === 0 && series.length === 0">
-                <h2>Popular</h2>
-                <div class="popular-container df">
+
+                <h2 class="mt-2">I film più popolari su Netflix</h2>
+                <div class="movie-container df">
                     <Movies 
                         v-for="movie in popular"
                         :key="movie.id"
@@ -31,8 +35,8 @@
                     />
                 </div>
 
-                <h2>Top Rated</h2>
-                <div class="top-rated-container df">
+                <h2 class="mt-5">I titoli del momento</h2>
+                <div class="movie-container df mb-5">
                     <Movies 
                         v-for="movie in topRatedMovies"
                         :key="movie.id"
@@ -44,12 +48,40 @@
                         :image="movie.poster_path"
                     />
                 </div>
+
+                <h2>Le serie TV più popolari su Netflix</h2>
+                <div class="movie-container df">
+                    <Movies 
+                        v-for="serie in popularSeries"
+                        :key="serie.id"
+                        :name="serie.name"
+                        :original_name="serie.original_name"
+                        :original_language="serie.original_language"
+                        :vote_average="serie.vote_average"
+                        :getCompletePoster="serie.poster_path"
+                        :image="serie.poster_path"
+                    />
+                </div>
+
+                <h2 class="mt-5">Le serie TV del momento</h2>
+                <div class="movie-container mb-5 df">
+                    <Movies 
+                        v-for="serie in topRatedSeries"
+                        :key="serie.id"
+                        :name="serie.name"
+                        :original_name="serie.original_name"
+                        :original_language="serie.original_language"
+                        :vote_average="serie.vote_average"
+                        :getCompletePoster="serie.poster_path"
+                        :image="serie.poster_path"
+                    />
+                </div>
             </div>
 
             <div v-else>
 
-                <h2>Movies</h2>
-                <div class="movies-container df">
+                <h2>Film</h2>
+                <div class="movie-container df">
                     <Movies 
                         v-for="movie in movies"
                         :key="movie.id"
@@ -62,8 +94,8 @@
                     />
                 </div>
 
-                <h2 class="mt-5">Series</h2>
-                <div class="series-container df mb-5">
+                <h2 class="mt-5">Serie</h2>
+                <div class="movie-container df mb-5">
                     <Movies 
                         v-for="serie in series"
                         :key="serie.id"
@@ -75,6 +107,7 @@
                         :image="serie.poster_path"
                     />
                 </div>
+
             </div>
 
             </div>
@@ -92,11 +125,14 @@ export default {
         Movies,
     },
     props: {
+        popularSeries: Array,
         popular: Array,
         topRatedMovies: Array,
         movies: Array,
         series: Array,
+        topRatedSeries: Array,
         flagShow: Boolean,
+        closeButton: Boolean,
     },
     data() {
         return {
@@ -104,7 +140,6 @@ export default {
             showSearchBar: false,
         }
     },
-
 }
 </script>
 
@@ -123,6 +158,7 @@ export default {
             padding: 3px;
             margin-bottom: 12px;
             color: white;
+            outline: none;
 
             &::placeholder {
                 color: whitesmoke;
@@ -156,9 +192,27 @@ export default {
                 border: none;
             }
         }
+
+        .close-button-container {
+            text-align: end;
+
+            .close-button {
+                background-color: #1b1b1b;
+                border: none;
+                font-size: 12px;
+                color: #555;
+                font-weight: bold;
+                text-align: end;
+
+                &:hover {
+                    text-decoration: underline;
+                    color: white;
+                }
+            }
+        }
     }
 
-    .popular-container, .movies-container, .series-container {
+    .movie-container {
         overflow-y: auto;
 
         &::-webkit-scrollbar {
@@ -179,6 +233,7 @@ export default {
             background: #555; 
         }
     }
+
 }
 
 

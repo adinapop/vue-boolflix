@@ -8,7 +8,7 @@
                 </div>
                 <div class="info-content df">
                     <div><a href="#">Menu</a></div>
-                    <div><a href="#">Serie TV</a></div>
+                    <div><a href="#">Series TV</a></div>
                     <div><a href="#">Film</a></div>
                     <div><a href="#">Originali</a></div>
                     <div><a href="#">Aggiunti di recente</a></div>

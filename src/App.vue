@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Header @send="showSearchBar" />
-    <!-- se movies and series is empty, allora visualizzo popular -->
-    <Main :flagShow="flagShow" :popular="popular" :movies="movies" :series="series" :topRatedMovies="topRatedMovies" @search="[searchMulti($event), searchMovie($event), searchSerie($event)]" />
+    <Main :flagShow="flagShow" :closeButton="closeButton" :popular="popular" :movies="movies" :series="series" :topRatedMovies="topRatedMovies" :topRatedSeries="topRatedSeries" :popularSeries="popularSeries" @search="[searchMulti($event), searchMovie($event), searchSerie($event)]" @close="closeSearchBar"/>
+    <Loader v-if="popular.length === 0 && topRatedMovies.length === 0 && popularSeries.length === 0 && topRatedSeries.length === 0"/>
     <!-- $event = $searchInput -->
   </div>
 </template>
@@ -11,12 +11,14 @@
 import axios from "axios";
 import Header from "./components/Header.vue";
 import Main from "./components/Main.vue";
+import Loader from "./components/Loader.vue"
 
 export default {
   name: 'App',
   components: {
     Header,
     Main,
+    Loader,
   },
 
   data: function() {
@@ -25,13 +27,19 @@ export default {
       movies: [],
       series: [],
       topRatedMovies: [],
+      popularSeries: [],
+      topRatedSeries: [],
       type: "",
       flagShow: false,
+      closeButton: true,
     }
   },
 
   created() {
     this.getPopularMovie();
+    this.getTopRated();
+    this.getPopularSeries();
+    this.getTopRatedSeries();
   },
 
   methods: {
@@ -53,6 +61,20 @@ export default {
       this.type = "/movie/top_rated";
       axios.get(this.getApiUrl()).then((result) => {
         this.topRatedMovies = result.data.results;
+      });
+    },
+
+    getPopularSeries() {
+      this.type = "/tv/popular";
+      axios.get(this.getApiUrl()).then((result) => {
+        this.popularSeries = result.data.results;
+      });
+    },
+
+    getTopRatedSeries() {
+      this.type = "/tv/top_rated";
+      axios.get(this.getApiUrl()).then((result) => {
+        this.topRatedSeries = result.data.results;
       });
     },
 
@@ -99,6 +121,10 @@ export default {
 
     showSearchBar() {
       this.flagShow = true;
+    },
+
+    closeSearchBar() {
+      this.closeButton = false;
     }
 
   }
