@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <Header @send="openSearchBar()" />
+    <!-- @send="sendComand"  -->
+    <Header />
     <!-- se movies and series is empty, allora visualizzo popular -->
-    <Main :popular="popular" :movies="movies" :series="series" @search="[searchMovie($event), searchSerie($event)]" />
+    <Main :popular="popular" :movies="movies" :series="series" @search="[searchMulti($event), searchMovie($event), searchSerie($event)]" />
     <!-- $event = $searchInput -->
   </div>
 </template>
@@ -24,50 +25,52 @@ export default {
       popular: [],
       movies: [],
       series: [],
-      flg: false,
+      type: "",
     }
   },
 
   created() {
+    this.getApiUrl();
     this.callPopularApi();
   },
 
-  // DA RIVEDERE
   methods: {
-    // function per richiamare l'API con i film più popolari
-    callPopularApi() {
-      axios.get("https://api.themoviedb.org/3/movie/popular?api_key=557ce10c821b70880c7de5a864524185&language=it-IT&page=1")
-      .then((result) => {this.popular = result.data.results;});
+
+    getApiUrl() {
+      return `https://api.themoviedb.org/3${this.type}?api_key=557ce10c821b70880c7de5a864524185&language=it-IT&page=1&query=${this.search}`
     },
 
-    // faccio la nuova chiamata API tramite search dell'utente per cercare film o serie
-    searchMulti(searchInput) {
-      if(searchInput.length === 0) {
-          return this.callPopularApi();
-      }
-      axios.get(`https://api.themoviedb.org/3/search/multi?api_key=557ce10c821b70880c7de5a864524185&query=${searchInput}`).then((result) => {
+    // function per richiamare l'API con i film più popolari
+    callPopularApi() {
+      this.type = "/movie/popular";
+      axios.get(this.getApiUrl()).then((result) => {
         this.popular = result.data.results;
       });
     },
-    
+
+    searchMulti(searchInput) {
+      this.type = "/search/multi";
+      if(searchInput.length === 0) {
+        return this.callPopularApi();
+      }
+    },
+
     searchMovie(searchInput) {
-      axios.get(`https://api.themoviedb.org/3/search/movie?api_key=557ce10c821b70880c7de5a864524185&query=${searchInput}`).then((result) => {
+      this.type = "/search/movie";
+      this.search = searchInput;
+      return axios.get(this.getApiUrl()).then((result) => {
         this.movies = result.data.results;
-      })
+      });
     },
 
     searchSerie(searchInput) {
-      console.log("ciao");
-      axios.get(`https://api.themoviedb.org/3/search/tv?api_key=557ce10c821b70880c7de5a864524185&query=${searchInput}`).then((result) => {
+      this.type = "/search/tv";
+      this.search = searchInput;
+      return axios.get(this.getApiUrl()).then((result) => {
         this.series = result.data.results;
-        console.log(result.data.results);
-      })
+      });
     },
 
-    openSearchBar() {
-      this.display = !this.display;
-      alert("ciao");
-      }
   }
 }
 </script>
@@ -76,8 +79,7 @@ export default {
 
 @import "./style/app.scss";
 @import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
-#app {
-  background-color: $bg-color;
-}
+.none {display: none;}
+.show {display: inline-block;}
 
 </style>

@@ -1,13 +1,12 @@
 <template>
+
     <main>
 
         <div class="cards-container container">
-            <div class="row">
 
+            <div class="row">
                 <h1 class="p-0">ORIGINALI NETFLIX</h1>
-                <!-- Input che vorrei rendere dinamica quando fai click sull'icona all'header -->
-                <!-- v-if="display" -->
-                <div class="search-container df p-0" :style="display">
+                <div class="search-container df p-0" >
                     <input 
                     class="search-input" 
                     type="Search" 
@@ -17,55 +16,52 @@
                     <button class="search-button" @click="$emit('search', searchInput)">Search</button>
                 </div>
 
-                <!-- No result to add -->
-                <div v-if="movies.length === 0 && series.length === 0">
+            <div v-if="movies.length === 0 && series.length === 0">
+                <h2>Popular</h2>
+                <div class="popular-container df">
+                    <Movies 
+                        v-for="movie in popular"
+                        :key="movie.id"
+                        :title="movie.title"
+                        :original_title="movie.original_title"
+                        :original_language="movie.original_language"
+                        :vote_average="movie.vote_average"
+                        :getCompletePoster="movie.poster_path"
+                        :image="movie.poster_path"
+                    />
+                </div>
+            </div>
 
-                    <h2>Popular</h2>
-                    <div class="df">
-                        <Movies 
-                            v-for="movie in popular"
-                            :key="movie.id"
-                            :title="movie.title"
-                            :original_title="movie.original_title"
-                            :original_language="movie.original_language"
-                            :vote_average="movie.vote_average"
-                            :getCompletePoster="movie.poster_path"
-                            :image="movie.poster_path"
-                        />
-                    </div>
+            <div v-else>
+
+                <h2>Movies</h2>
+                <div class="movies-container df">
+                    <Movies 
+                        v-for="movie in movies"
+                        :key="movie.id"
+                        :title="movie.title"
+                        :original_title="movie.original_title"
+                        :original_language="movie.original_language"
+                        :vote_average="movie.vote_average"
+                        :getCompletePoster="movie.poster_path"
+                        :image="movie.poster_path"
+                    />
                 </div>
 
-                <div v-else>
-                    <h2>Movies</h2>
-                    <div class="df">
-
-                        <Movies 
-                            v-for="movie in movies"
-                            :key="movie.id"
-                            :title="movie.title"
-                            :original_title="movie.original_title"
-                            :original_language="movie.original_language"
-                            :vote_average="movie.vote_average"
-                            :getCompletePoster="movie.poster_path"
-                            :image="movie.poster_path"
-                        />
-                    </div>
-
-                    <h2>Series</h2>
-                    <div class="df">
-                        <Movies 
-                            v-for="movie in series"
-                            :key="movie.id"
-                            :title="movie.title"
-                            :original_title="movie.original_title"
-                            :original_language="movie.original_language"
-                            :vote_average="movie.vote_average"
-                            :getCompletePoster="movie.poster_path"
-                            :image="movie.poster_path"
-                        />
-
-                    </div>
+                <h2 class="mt-5">Series</h2>
+                <div class="series-container df mb-5">
+                    <Movies 
+                        v-for="serie in series"
+                        :key="serie.id"
+                        :name="serie.name"
+                        :original_name="serie.original_name"
+                        :original_language="serie.original_language"
+                        :vote_average="serie.vote_average"
+                        :getCompletePoster="serie.poster_path"
+                        :image="serie.poster_path"
+                    />
                 </div>
+            </div>
 
             </div>
         </div>
@@ -84,7 +80,7 @@ export default {
     props: {
         popular: Array,
         movies: Array,
-        series: Array
+        series: Array,
     },
     data() {
         return {
@@ -95,9 +91,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .cards-container {
 
-    h1 {color: whitesmoke}
+    h1, h2 {color: whitesmoke}
 
     .search-container {
         .search-input {
@@ -140,6 +137,28 @@ export default {
                 color: black;
                 border: none;
             }
+        }
+    }
+
+    .popular-container, .movies-container, .series-container {
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #1b1b1b; 
+            border-radius: 12px;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+            background: #242424; 
+            border-radius: 12px;
+        }
+        
+        &::-webkit-scrollbar-thumb:hover {
+            background: #555; 
         }
     }
 }

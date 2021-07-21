@@ -1,19 +1,18 @@
 <template>
-    <div class="movies-album col-3 p-0">
+    <div class="movies-album col-2 p-0">
 
         <div class="img-container">
             <img :src="getCompletePoster(image)" alt="Poster" >
         </div>
 
         <div class="hover-container">
-            <div class="title"> {{title}} </div>
-            <div class="original-title">Title: {{original_title}} </div>
+            <div class="title"> {{title}} {{name}} </div>
+            <div class="original-title">Title: {{original_title}} {{original_name}}</div>
             <div class="original_language">
                 Original Language:
                 <flag :iso="getLangFlag(original_language)" />
             </div>
 
-            <!-- v-for in range (guarda vuejs.org) -->
             <div class="vote-average">
                 <!-- stampo solo il numero di stelle che corrispono al voto dal data -->
                 <i class="fas fa-star" v-for="star in star" :key="star"></i>
@@ -38,25 +37,28 @@ props: {
     original_title: String,
     original_language: String,
     vote_average: Number,
+    name: String,
+    original_name: String,
 },
 computed: {
     // la metto qui perché è un'operazione che non altera il voto originale e 
     // non deve ripetersi come nel method, ma solo al riavvio
     star() {
-        // prova a fare non arrotondata 
         return Math.floor(this.vote_average / 2);
     },
 },
+
 methods: {
     getCompletePoster(incompleteImg) {
         return `http://image.tmdb.org/t/p/w500/${incompleteImg}`;
         },
+        
     getLangFlag(language) {
         if(language === "en") {
-            return "us"
-        } else {
-            return language;
-        }
+                return "us"
+            } else {
+                return language;
+            }
         },
     }
 }
@@ -66,6 +68,7 @@ methods: {
 .movies-album {
     position: relative;
     cursor: pointer;
+    margin: 0 3px;
 
     .hover-container, .info-hover-container {display: none;}
 
@@ -92,20 +95,21 @@ methods: {
                 font-weight: bold;
                 font-style: italic;
                 border-bottom: 1px solid gray;
+                background-color: transparent;
             }
 
             .original-title, .original_language, .vote-average {
                 font-size: 15px;
                 color: whitesmoke;
+                background-color: transparent;
             }
 
-            // PERCHE' NON FUNZIONA???
-            // .vote-average {
-            //     &:first-child {color: gold;}
-            //     }
-
             .vote-average {
-                .fas {color: gold;}
+                .fas {
+                    color: gold;
+                    background-color: transparent;
+                    }
+                .far {background-color: transparent;}
             }
         }
     }
