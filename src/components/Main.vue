@@ -6,7 +6,7 @@
 
             <div class="row">
                 <h1 class="p-0">ORIGINALI NETFLIX</h1>
-                <div class="search-container df p-0" >
+                <div class="search-container df p-0" v-if="flagShow" >
                     <input 
                     class="search-input" 
                     type="Search" 
@@ -21,6 +21,20 @@
                 <div class="popular-container df">
                     <Movies 
                         v-for="movie in popular"
+                        :key="movie.id"
+                        :title="movie.title"
+                        :original_title="movie.original_title"
+                        :original_language="movie.original_language"
+                        :vote_average="movie.vote_average"
+                        :getCompletePoster="movie.poster_path"
+                        :image="movie.poster_path"
+                    />
+                </div>
+
+                <h2>Top Rated</h2>
+                <div class="top-rated-container df">
+                    <Movies 
+                        v-for="movie in topRatedMovies"
                         :key="movie.id"
                         :title="movie.title"
                         :original_title="movie.original_title"
@@ -79,14 +93,18 @@ export default {
     },
     props: {
         popular: Array,
+        topRatedMovies: Array,
         movies: Array,
         series: Array,
+        flagShow: Boolean,
     },
     data() {
         return {
             searchInput: "",
+            showSearchBar: false,
         }
     },
+
 }
 </script>
 

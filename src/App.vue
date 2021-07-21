@@ -1,9 +1,8 @@
 <template>
   <div id="app">
-    <!-- @send="sendComand"  -->
-    <Header />
+    <Header @send="showSearchBar" />
     <!-- se movies and series is empty, allora visualizzo popular -->
-    <Main :popular="popular" :movies="movies" :series="series" @search="[searchMulti($event), searchMovie($event), searchSerie($event)]" />
+    <Main :flagShow="flagShow" :popular="popular" :movies="movies" :series="series" :topRatedMovies="topRatedMovies" @search="[searchMulti($event), searchMovie($event), searchSerie($event)]" />
     <!-- $event = $searchInput -->
   </div>
 </template>
@@ -25,13 +24,14 @@ export default {
       popular: [],
       movies: [],
       series: [],
+      topRatedMovies: [],
       type: "",
+      flagShow: false,
     }
   },
 
   created() {
-    this.getApiUrl();
-    this.callPopularApi();
+    this.getPopularMovie();
   },
 
   methods: {
@@ -41,25 +41,48 @@ export default {
     },
 
     // function per richiamare l'API con i film più popolari
-    callPopularApi() {
+    getPopularMovie() {
       this.type = "/movie/popular";
       axios.get(this.getApiUrl()).then((result) => {
         this.popular = result.data.results;
       });
     },
 
+    // not showing data on page
+    getTopRated() {
+      this.type = "/movie/top_rated";
+      axios.get(this.getApiUrl()).then((result) => {
+        this.topRatedMovies = result.data.results;
+      });
+    },
+
+    // PROVA
+    // condition() {
+    //   if(this.searchInput.length === 0) {
+    //     //se la lunghezza dell'input è vuoto, svuota anche gli array
+    //     this.movies = [];
+    //     this.series = [];
+    //   } else { // altrimenti se è diverso da zero, quindi pieno, fai chiamata
+    //     return chiamata serie o movie
+    //   }
+    // },
+
     searchMulti(searchInput) {
       this.type = "/search/multi";
       if(searchInput.length === 0) {
-        return this.callPopularApi();
+        return this.getPopularMovie();
       }
     },
 
     searchMovie(searchInput) {
       this.type = "/search/movie";
       this.search = searchInput;
-      return axios.get(this.getApiUrl()).then((result) => {
+      return axios.get(this.getApiUrl())
+      .then((result) => {
         this.movies = result.data.results;
+      }).catch((error) => {
+        console.log(`erore dall'api: ${error}`);
+        this.movies = [];
       });
     },
 
@@ -68,8 +91,15 @@ export default {
       this.search = searchInput;
       return axios.get(this.getApiUrl()).then((result) => {
         this.series = result.data.results;
+      }).catch((error) => {
+        console.log(`erore dall'api: ${error}`);
+        this.series = [];
       });
     },
+
+    showSearchBar() {
+      this.flagShow = true;
+    }
 
   }
 }

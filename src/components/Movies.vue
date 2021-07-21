@@ -1,8 +1,8 @@
 <template>
-    <div class="movies-album col-2 p-0">
+    <div class="movies-album col-2 p-0" :style="'background-image:url('+ getCompletePoster(image) +')'">
 
-        <div class="img-container">
-            <img :src="getCompletePoster(image)" alt="Poster" >
+        <div class="img-container" >
+            <!-- <img :src="getCompletePoster(image)" alt="Poster" > -->
         </div>
 
         <div class="hover-container">
@@ -66,9 +66,12 @@ methods: {
 
 <style lang="scss" scoped>
 .movies-album {
+    height: 300px;
     position: relative;
     cursor: pointer;
     margin: 0 3px;
+    background-size: cover;
+    background-repeat: no-repeat;
 
     .hover-container, .info-hover-container {display: none;}
 

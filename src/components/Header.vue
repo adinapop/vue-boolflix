@@ -18,8 +18,8 @@
 
             <div class="account-header df">
                 <div class="search-button">
-                    <!-- @click="$emit('send', sendComand) -->
-                    <button><i class="fas fa-search"></i></button>
+                    
+                    <button @click="$emit('send')" ><i class="fas fa-search"></i></button>
                 </div>
 
                 <div><a href="#">BAMBINI</a></div>
